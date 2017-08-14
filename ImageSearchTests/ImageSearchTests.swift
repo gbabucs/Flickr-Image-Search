@@ -11,9 +11,12 @@ import XCTest
 
 class ImageSearchTests: XCTestCase {
     
+    let searchHistoryController = SearchHistoryViewController()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        // searchHistoryController.
     }
     
     override func tearDown() {
@@ -22,8 +25,29 @@ class ImageSearchTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let photo = Photo(id: "23451156376", secret: "8983a8ebc7", server: "578", farm: 1, title: "Merry Christmas!")
+        
+        XCTAssertEqual(photo.id, "23451156376")
+        XCTAssertEqual(photo.secret, "8983a8ebc7")
+        XCTAssertEqual(photo.server, "578")
+        XCTAssertEqual(photo.farm, 1)
+        XCTAssertEqual(photo.title, "Merry Christmas!")
+        
+    }
+    
+    func testTableViewOutlet() {
+        XCTAssertNil(searchHistoryController.tableView)
+    }
+    
+    func testPhotoNotEqual() {
+        let photo = Photo(id: "23451156376", secret: "8983a8ebc7", server: "578", farm: 1, title: "Merry Christmas!")
+        
+        XCTAssertNotEqual(photo.id, "1")
+        XCTAssertNotEqual(photo.secret, "")
+        XCTAssertNotEqual(photo.server, "434")
+        XCTAssertNotEqual(photo.farm, 3)
+        XCTAssertNotEqual(photo.title, "Merry Chriistmas!")
+        
     }
     
     func testPerformanceExample() {
