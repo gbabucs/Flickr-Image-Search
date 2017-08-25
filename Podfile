@@ -7,6 +7,7 @@ target 'ImageSearch' do
 
   # Pods for ImageSearch
     pod 'SDWebImage/WebP'
+    pod 'MapleBacon'
 
   target 'ImageSearchTests' do
     inherit! :search_paths
