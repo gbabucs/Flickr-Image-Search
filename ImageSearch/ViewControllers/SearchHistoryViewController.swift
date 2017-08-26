@@ -18,6 +18,9 @@ class SearchHistoryViewController: UIViewController {
     
     var recentSearchText: String?
     var searchHistory: [String]?
+    var searchedImages: [UIImage] = []
+    
+    //MARK:
     
     // MARK - UIView
     
@@ -27,7 +30,14 @@ class SearchHistoryViewController: UIViewController {
         self.title = "Recent History"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        searchedImages = ImageDataManager.shared.getImages()
+        if searchedImages.count > 0 {
+            self.showAlert(fot: "", message: "No history found")
+        }
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -35,23 +45,15 @@ class SearchHistoryViewController: UIViewController {
 extension SearchHistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = searchHistory?.count,
-            count > 0 else {
-                
-                return 0
-        }
-        
-        return count
+        return searchedImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryCell.identifier, for: indexPath) as? SearchHistoryCell,
-            let histories = searchHistory,
-            histories.count > 0 else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryCell.identifier, for: indexPath) as? SearchHistoryCell else {
                 return UITableViewCell()
         }
         
-        cell.configureCell(text: histories[indexPath.row])
+        cell.configureCell(text: "\(indexPath.row)", image: searchedImages[indexPath.row])
         
         return cell
     }

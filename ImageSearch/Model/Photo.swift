@@ -19,7 +19,11 @@ struct Photo {
     let title: String
     
     var url: URL {
-        return URL(string: "http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg")!
+        return URL(string: urlString)!
+    }
+    
+    var urlString: String {
+        return "http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg"
     }
     
 }

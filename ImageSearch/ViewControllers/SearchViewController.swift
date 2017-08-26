@@ -14,22 +14,15 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
-    //@IBOutlet weak var history: UIButton!
 
     //MARK: Properties
     
     var photos: [Photo] = []
-    var history: [String] = []
     var utils = ViewControllerUtils()
     
     // MARK: - Actions
     
     @IBAction func historyAction(sender: AnyObject) {
-        guard history.count > 0 else {
-            self.showErrorAlert(fot: "", message: "No history found")
-            return
-        }
-        
         performSegue(withIdentifier: "showHistory", sender: sender)
     }
     
@@ -52,23 +45,15 @@ class SearchViewController: UIViewController {
                 self.photos = []
                 if (error!.code == ServiceManager.Errors.errorCode) {
                     DispatchQueue.main.async(execute: { () -> Void in
-                        self.showErrorAlert(fot: "Search Error", message: "Invalid Flickr API Key")
+                        self.showAlert(fot: "Search Error", message: "Invalid Flickr API Key")
                     })
                 }
             }
             DispatchQueue.main.async(execute: { () -> Void in
                 self.title = searchText
-                self.history.append(searchText)
                 self.collectionView.reloadData()
             })
         })
-    }
-    
-    private func showErrorAlert(fot title: String, message: String) {
-        let alertController = UIAlertController(title: title , message: message , preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
-        alertController.addAction(dismissAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK - UIView
@@ -101,7 +86,6 @@ class SearchViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHistory" {
             let historyViewController = segue.destination as! SearchHistoryViewController
-            historyViewController.searchHistory = history
         }
     }
 }

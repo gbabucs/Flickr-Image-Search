@@ -1,5 +1,5 @@
 //
-//  MARK: Functions          func configureCell(for photo: Photo) {         imageView.sd_setImage(with: photo.swift
+//  ImageViewCell.swift
 //  ImageSearch
 //
 //  Created by Babu Gangatharan on 7/25/17.
@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import MapleBacon
 
 class ImageViewCell: UICollectionViewCell {
     
@@ -28,7 +29,29 @@ class ImageViewCell: UICollectionViewCell {
      */
     
     func configureCell(for photo: Photo) {
-        imageView.sd_setImage(with: photo.url)
+        imageView.setImage(withUrl: photo.url)
+        imageView.contentMode = .scaleAspectFill
+        saveImageToCoreData(for: photo)
+    }
+    
+    /**
+     Save Image To CoreData
+     - parameters: photo object
+     - photo: Photo object
+     lazy loading from the MapleBacon pod to store the image
+     */
+    
+    func saveImageToCoreData(for photo: Photo) {
+        guard let id = Int(photo.id),
+            let image = InMemoryStorage.sharedStorage.image(forKey: photo.urlString) else {
+                return
+        }
+        
+        let manager = ImageDataManager.shared
+    
+        if manager.isExist(id: id) == false {
+            manager.save(id: id, image: image)
+        }
     }
     
 }

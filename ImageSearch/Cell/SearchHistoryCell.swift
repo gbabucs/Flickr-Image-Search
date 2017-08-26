@@ -13,6 +13,7 @@ class SearchHistoryCell: UITableViewCell {
     //MARK: Outlets
     
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var images: UIImageView!
     
     //MARK: Static
     
@@ -26,8 +27,10 @@ class SearchHistoryCell: UITableViewCell {
      - value: Title string
      */
     
-    func configureCell(text value: String) {
+    func configureCell(text value: String, image: UIImage?) {
         title.text = value
+        images.image = image
+        images.contentMode = .scaleAspectFill
     }
     
 }
