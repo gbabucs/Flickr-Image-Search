@@ -19,18 +19,39 @@ class SearchHistoryCell: UITableViewCell {
     
     static let identifier = "SearchHistoryCell"
     
+    //MARK: Static functions
+    
+    static func dynamicHeight(text: String) -> CGFloat {
+        let font = UIFont(name: "Helvetica", size: 14.0)
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: CGFloat.greatestFiniteMagnitude))
+        
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.font = font
+        label.text = text
+        label.sizeToFit()
+        
+        return label.frame.height + 120.0
+    }
+    
     //MARK: Functions
     
     /**
      Configure cell
      - parameters:
-     - value: Title string
+     - for: searchPhoto
      */
     
-    func configureCell(text value: String, image: UIImage?) {
-        title.text = value
+    func configureCell(for searchPhoto: SearchPhotos) {
+        guard let imageData =  searchPhoto.imageData as? Data,
+            let image =  UIImage(data: imageData)
+            else {
+                return
+        }
+        
+        title.text = searchPhoto.url
         images.image = image
-        images.contentMode = .scaleAspectFill
+        images.contentMode = .scaleAspectFit
     }
     
 }

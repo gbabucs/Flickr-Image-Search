@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -111,35 +112,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-9I-cOU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-9I-cOU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchHistoryCell" rowHeight="85" id="Lnz-gN-EFC" customClass="SearchHistoryCell" customModule="ImageSearch" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchHistoryCell" rowHeight="120" id="Lnz-gN-EFC" customClass="SearchHistoryCell" customModule="ImageSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lnz-gN-EFC" id="WKt-WK-ftE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iog-Xr-QWt">
-                                                    <rect key="frame" x="28" y="28" width="57" height="29"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-l5-uCi">
+                                                    <rect key="frame" x="29" y="5" width="110" height="110"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="110" id="4i7-GN-zUy"/>
+                                                        <constraint firstAttribute="width" constant="110" id="FJQ-aP-lpk"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iog-Xr-QWt">
+                                                    <rect key="frame" x="159" y="46" width="208" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-l5-uCi">
-                                                    <rect key="frame" x="260" y="-1" width="85" height="85"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="85" id="rnL-j7-aO4"/>
-                                                    </constraints>
-                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="PnH-l5-uCi" secondAttribute="trailing" constant="30" id="3LH-zl-l2o"/>
-                                                <constraint firstItem="iog-Xr-QWt" firstAttribute="leading" secondItem="WKt-WK-ftE" secondAttribute="leading" constant="28" id="7sd-JL-V3A"/>
-                                                <constraint firstItem="PnH-l5-uCi" firstAttribute="centerY" secondItem="WKt-WK-ftE" secondAttribute="centerY" id="WW2-FI-LC1"/>
-                                                <constraint firstItem="iog-Xr-QWt" firstAttribute="centerY" secondItem="WKt-WK-ftE" secondAttribute="centerY" id="c2I-hK-X0I"/>
+                                                <constraint firstItem="PnH-l5-uCi" firstAttribute="leading" secondItem="WKt-WK-ftE" secondAttribute="leading" constant="29" id="Cx7-U1-Spy"/>
+                                                <constraint firstItem="PnH-l5-uCi" firstAttribute="centerY" secondItem="WKt-WK-ftE" secondAttribute="centerY" id="OUb-zh-mSm"/>
+                                                <constraint firstAttribute="trailing" secondItem="iog-Xr-QWt" secondAttribute="trailing" constant="8" id="XgI-eh-Hbl"/>
+                                                <constraint firstItem="iog-Xr-QWt" firstAttribute="leading" secondItem="PnH-l5-uCi" secondAttribute="trailing" constant="20" id="b1B-dn-b0A"/>
+                                                <constraint firstItem="iog-Xr-QWt" firstAttribute="centerY" secondItem="WKt-WK-ftE" secondAttribute="centerY" id="vK9-uU-98f"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

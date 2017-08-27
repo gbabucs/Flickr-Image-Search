@@ -16,28 +16,35 @@ class SearchHistoryViewController: UIViewController {
     
     //MARK: Properties
     
-    var recentSearchText: String?
-    var searchHistory: [String]?
-    var searchedImages: [UIImage] = []
+    var history: [SearchPhotos] = []
     
-    //MARK:
+    //MARK: Functions
+    
+    func setup(){
+        title = "History"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        tableView.tableFooterView = UIView.init()
+    }
     
     // MARK - UIView
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Recent History"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        setup()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        searchedImages = ImageDataManager.shared.getImages()
-        if searchedImages.count > 0 {
-            self.showAlert(fot: "", message: "No history found")
+        history = ImageDataManager.shared.getImages()
+        tableView.reloadData()
+        
+        if history.count < 1 {
+            showAlert(fot: "", message: "No history found")
         }
     }
+    
 }
 
 //MARK: UITableViewDataSource
@@ -45,7 +52,7 @@ class SearchHistoryViewController: UIViewController {
 extension SearchHistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchedImages.count
+        return history.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,9 +60,23 @@ extension SearchHistoryViewController: UITableViewDataSource {
                 return UITableViewCell()
         }
         
-        cell.configureCell(text: "\(indexPath.row)", image: searchedImages[indexPath.row])
+        cell.configureCell(for: history[indexPath.row])
         
         return cell
     }
+    
 }
 
+//MARK: UITableViewDelegate
+
+extension SearchHistoryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let text = history[indexPath.row].url else {
+            return 120.0
+        }
+        
+        return SearchHistoryCell.dynamicHeight(text: text)
+    }
+    
+}

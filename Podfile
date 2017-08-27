@@ -6,7 +6,6 @@ target 'ImageSearch' do
   use_frameworks!
 
   # Pods for ImageSearch
-    pod 'SDWebImage/WebP'
     pod 'MapleBacon'
 
   target 'ImageSearchTests' do

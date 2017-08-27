@@ -74,7 +74,6 @@ class SearchViewController: UIViewController {
         let screenSize = UIScreen.main.bounds
         let padding: CGFloat = 25
         let screenWidth = screenSize.width
-        
         let collectionCellSize = screenWidth - padding
         
         flowLayout.itemSize = CGSize(width: collectionCellSize/2, height: collectionCellSize/2)

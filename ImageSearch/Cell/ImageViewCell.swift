@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 import MapleBacon
 
 class ImageViewCell: UICollectionViewCell {
@@ -50,7 +49,7 @@ class ImageViewCell: UICollectionViewCell {
         let manager = ImageDataManager.shared
     
         if manager.isExist(id: id) == false {
-            manager.save(id: id, image: image)
+            manager.save(id: id, image: image, url: photo.urlString)
         }
     }
     

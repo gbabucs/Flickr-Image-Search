@@ -16,10 +16,6 @@ public class ImageDataManager {
     
     public static let shared = ImageDataManager()
     
-    //MARK:  Properties
-    
-    let fetchRequest = SearchPhotos.imageFetchRequest()
-    
     //MARK: Functions
     
     /**
@@ -27,33 +23,32 @@ public class ImageDataManager {
      - returns: Array of images
      */
     
-    func getImages() -> [UIImage] {
-        var images = [UIImage]()
+    func getImages() -> [SearchPhotos] {
+        var photos = [SearchPhotos]()
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else {
-                return images
+                return photos
         }
         
         let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = SearchPhotos.imageFetchRequest()
         
         do {
             let fetchedResults = try context.fetch(fetchRequest)
             
             for result in fetchedResults {
-                guard let imageData =  (result as AnyObject).value(forKey: "imageData") as? Data,
-                      let image =  UIImage(data: imageData)
-                else {
-                    return images
+                guard let photo = result as? SearchPhotos else {
+                    return photos
                 }
                 
-                images.append(image)
+                photos.append(photo)
             }
         } catch {
             fatalError("Unable read images")
         }
         
-        return images
+        return photos
     }
     
     /**
@@ -68,8 +63,10 @@ public class ImageDataManager {
                 return false
         }
         let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = SearchPhotos.imageFetchRequest()
         
         fetchRequest.predicate = NSPredicate(format: "id = \(id)", argumentArray: nil)
+        
         do {
             let res = try context.fetch(fetchRequest)
             
@@ -85,7 +82,7 @@ public class ImageDataManager {
      - returns: Bool
      */
     
-    func save(id:Int, image: UIImage) {
+    func save(id:Int, image: UIImage, url: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else {
                 return
@@ -97,6 +94,7 @@ public class ImageDataManager {
         
         photos.setValue(id, forKey: "id")
         photos.setValue(newImageData, forKey: "imageData")
+        photos.setValue(url, forKey: "url")
         
         do {
             try context.save()
